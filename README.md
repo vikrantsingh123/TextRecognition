@@ -1,0 +1,2 @@
+# TextRecognition
+TextRecognition app
