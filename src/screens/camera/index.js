@@ -4,13 +4,16 @@ import { RNCamera } from 'react-native-camera';
 // import RNMlKit from 'react-native-firebase-mlkit';
 import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
-import { Title, Button } from 'native-base';
+import { Title, Spinner, Button } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
 
 class Camera extends Component {
   state = { zoomValue: 0, flashMode: RNCamera.Constants.FlashMode.off };
   render() {
     const { memoStore } = this.props.store;
+    // if (memoStore.loader == true) {
+    //   return <Spinner color="red" />;
+    // }
     return (
       <View style={styles.container}>
         <RNCamera
@@ -25,8 +28,6 @@ class Camera extends Component {
           permissionDialogMessage={'We need your permission to use your camera phone'}
           zoom={this.state.zoomValue}
         />
-        {/* <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }} /> */}
-
         <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
           <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
             <Slider
@@ -54,44 +55,23 @@ class Camera extends Component {
     } else this.setState({ flashMode: RNCamera.Constants.FlashMode.off });
   };
   takePicture = async () => {
+    const { memoStore } = this.props.store;
     try {
+      //memoStore.loader = true;
       const options = {
         quality: 0.8,
         base64: true,
-        skipProcessing: true
+        skipProcessing: true,
       };
       const { uri } = await this.camera.takePictureAsync(options);
       const visionResp = await RNTextDetector.detectFromUri(uri);
+      this.props.store.memoStore.addItem(visionResp);
       console.log('visionResp', visionResp);
     } catch (e) {
       console.warn(e);
     }
+    //memoStore.loader = false;
   };
-
-  // takePicture = async function() {
-  //   if (this.camera) {
-  //     const options = { quality: 0.5, base64: true, skipProcessing: true, forceUpOrientation: true };
-  //     const data = await this.camera.takePictureAsync(options);
-
-  //     // for on-device (Supports Android and iOS)
-  //     const deviceTextRecognition = await RNMlKit.deviceTextRecognition(data.uri).catch(err =>
-  //       console.log('caught it2', err)
-  //     );
-
-  //     console.log('Text Recognition On-Device', deviceTextRecognition);
-  //     this.props.store.memoStore.addItem(deviceTextRecognition);
-  //     // for cloud (At the moment supports only Android)
-  //     // const cloudTextRecognition = await RNMlKit.cloudTextRecognition(data.uri);
-  //     // console.log('Text Recognition Cloud', cloudTextRecognition);
-
-  //     // const faceDetection = await RNMlKit.deviceFaceRecognition(data.uri).catch(err => console.log('caught it3 ', err));
-  //     // console.log('face Reco ', faceDetection);
-
-  //     console.log('data', data);
-  //     console.log('rnmlkit', RNMlKit);
-  //   }
-  // };
-  //takePicture().then(result=>console.log("res",result));
 }
 export default inject('store')(observer(Camera));
 
@@ -99,12 +79,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black'
+    backgroundColor: 'black',
   },
   preview: {
     flex: 1,
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   capture: {
     flex: 0,
@@ -113,6 +93,6 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingHorizontal: 20,
     alignSelf: 'center',
-    margin: 20
-  }
+    margin: 20,
+  },
 });

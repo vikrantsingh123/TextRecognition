@@ -6,18 +6,17 @@ import memoActions from './../actions/memoActions';
 const memoModel = types.model('memoModel', {
   id: types.number,
   name: types.string,
-  content: types.maybe(types.string)
+  content: types.maybe(types.array(types.string)),
 });
 
 const memoStore = types
   .model('workoutStore', {
-    loading: types.boolean,
-    memoArray: types.array(memoModel)
+    memoArray: types.array(memoModel),
   })
   .views(self => ({
     get getworkLoading() {
       return self.loading;
-    }
+    },
   }))
   .actions(memoActions);
 
