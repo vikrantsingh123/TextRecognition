@@ -1,21 +1,37 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
-// import RNMlKit from 'react-native-firebase-mlkit';
 import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
-import { Title, Spinner, Button } from 'native-base';
+import { Spinner, Button, Icon, Header, Left, Body, Title } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
 
 class Camera extends Component {
   state = { zoomValue: 0, flashMode: RNCamera.Constants.FlashMode.off };
+
+  static navigationOptions = {
+    header: null,
+  };
+
   render() {
     const { memoStore } = this.props.store;
-    // if (memoStore.loader == true) {
-    //   return <Spinner color="red" />;
-    // }
+    {
+      console.log('render method', memoStore.loader);
+    }
+
     return (
       <View style={styles.container}>
+        <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+          <Left>
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Header</Title>
+          </Body>
+          <Left />
+        </Header>
         <RNCamera
           ref={ref => {
             this.camera = ref;
@@ -24,28 +40,37 @@ class Camera extends Component {
           type={RNCamera.Constants.Type.back}
           flashMode={this.state.flashMode}
           autoFocus={RNCamera.Constants.AutoFocus.on}
-          permissionDialogTitle={'Permission to use camera'}
-          permissionDialogMessage={'We need your permission to use your camera phone'}
+          androidCameraPermissionOptions={{
+            title: 'Permission to use camera',
+            message: 'We need your permission to use your camera',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
           zoom={this.state.zoomValue}
-        />
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-          <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
-            <Slider
-              minimumValue={0}
-              maximumValue={1}
-              step={0.1}
-              value={this.state.zoomValue}
-              onValueChange={zoomValue => this.setState({ zoomValue })}
-            />
-          </View>
+        >
+          {memoStore.loader == true ? (
+            <View styles={StyleSheet.spinnerStyle}>
+              <Spinner color="red" />
+              <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Please Wait...</Text>
+            </View>
+          ) : null}
+          <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+            <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
+              <Slider
+                minimumValue={0}
+                maximumValue={1}
+                step={0.1}
+                value={this.state.zoomValue}
+                onValueChange={zoomValue => this.setState({ zoomValue })}
+                thumbTintColor="#e94153"
+              />
+            </View>
 
-          <Button onPress={this.takePicture.bind(this)} style={styles.capture} title="SNAP">
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
-          </Button>
-          <Button onPress={this.flash} style={styles.capture}>
-            <Text style={{ fontSize: 14 }}> Flash </Text>
-          </Button>
-        </View>
+            <Icon type="Entypo" onPress={this.takePicture} style={styles.icon} name="flickr-with-circle" />
+
+            <Icon type="Entypo" onPress={this.flash} style={styles.icon} name="flash" />
+          </View>
+        </RNCamera>
       </View>
     );
   }
@@ -57,7 +82,8 @@ class Camera extends Component {
   takePicture = async () => {
     const { memoStore } = this.props.store;
     try {
-      //memoStore.loader = true;
+      memoStore.loaderTrue();
+      console.log('try', memoStore.loader);
       const options = {
         quality: 0.8,
         base64: true,
@@ -70,7 +96,8 @@ class Camera extends Component {
     } catch (e) {
       console.warn(e);
     }
-    //memoStore.loader = false;
+    memoStore.loaderFalse();
+    console.log('try outside', memoStore.loader);
   };
 }
 export default inject('store')(observer(Camera));
@@ -83,16 +110,25 @@ const styles = StyleSheet.create({
   },
   preview: {
     flex: 1,
+    flexDirection: 'column',
     justifyContent: 'flex-end',
-    alignItems: 'center',
   },
-  capture: {
+  icon: {
     flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
+    color: 'white',
+    fontSize: 40,
     padding: 15,
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20,
+  },
+  spinnerStyle: {
+    flex: 0,
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    height: '40',
+    width: '40',
+    alignSelf: 'flex-start',
   },
 });

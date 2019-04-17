@@ -3,9 +3,11 @@ import storeModel from './../models';
 // Create instance of store model
 const store = storeModel.create({
   memoStore: {
-    loading: true,
-    memoArray: []
-  }
+    loader: false,
+    memoArray: [],
+    overlayVisible: false,
+    editId: 0,
+  },
 });
 
 export default store;

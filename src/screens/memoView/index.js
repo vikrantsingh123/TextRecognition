@@ -11,7 +11,7 @@ class MemoView extends Component {
       <Container style={styles.container}>
         <Content>
           <Text>{memoStore.memoArray.content}</Text>
-          <List dataArray={memoStore.memoArray[index - 1].content.slice()} renderRow={this.renderItem} />
+          <List dataArray={memoStore.memoArray[index].content.slice()} renderRow={this.renderItem} />
         </Content>
       </Container>
     );

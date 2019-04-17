@@ -4,7 +4,6 @@ import memoActions from './../actions/memoActions';
 
 // Individual workout model
 const memoModel = types.model('memoModel', {
-  id: types.number,
   name: types.string,
   content: types.maybe(types.array(types.string)),
 });
@@ -12,6 +11,9 @@ const memoModel = types.model('memoModel', {
 const memoStore = types
   .model('workoutStore', {
     memoArray: types.array(memoModel),
+    loader: types.boolean,
+    overlayVisible: types.boolean,
+    editId: types.number,
   })
   .views(self => ({
     get getworkLoading() {
