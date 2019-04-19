@@ -26,16 +26,11 @@ class EditView extends Component {
   };
 
   save = () => {
-    //console.log('save', this.state.editName.split('\n'));
-    //const index = this.props.navigation.getParam('otherParam', 1);
     this.props.store.memoStore.saveContent(this.state.editName.split('\n'));
     this.props.navigation.goBack();
   };
 
   render() {
-    const { memoStore } = this.props.store;
-    const index = this.props.navigation.getParam('otherParam', 1);
-
     return (
       <Container style={styles.container}>
         <Content>
@@ -81,7 +76,6 @@ export default inject('store')(observer(EditView));
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: '#F5FCFF',
   },
   welcome: {

@@ -84,8 +84,8 @@ class Welcome extends Component {
     return (
       <Card style={{ flex: 0, borderRadius: 3, marginLeft: 10, marginRight: 10 }}>
         <CardItem
+          style={{ paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0 }}
           button
-          style={{ margin: 4 }}
           onPress={() =>
             this.props.navigation.navigate('MemoView', {
               otherParam: index,
@@ -93,16 +93,19 @@ class Welcome extends Component {
           }
         >
           <Left>
-            <Button full danger onPress={() => memoStore.overlayTrue(index)}>
-              <Icon active name="trash" />
+            <Button
+              style={{ alignSelf: 'flex-start', backgroundColor: '#f57f17' }}
+              full
+              onPress={() => memoStore.overlayTrue(index)}
+            >
+              <Icon type="FontAwesome5" style={{ fontSize: 18 }} active name="user-edit" />
             </Button>
-          </Left>
-          <Body>
             <Text style={styles.text}>{memo.name}</Text>
-          </Body>
+          </Left>
+
           <Right>
-            <Button full danger onPress={() => memoStore.delete(index)}>
-              <Icon active name="trash" />
+            <Button style={{ alignSelf: 'flex-end' }} full danger onPress={() => memoStore.delete(index)}>
+              <Icon style={{ fontSize: 24 }} active name="trash" />
             </Button>
           </Right>
         </CardItem>
