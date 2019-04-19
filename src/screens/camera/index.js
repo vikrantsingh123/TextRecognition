@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
-import { Spinner, Button, Icon, Header, Left, Body, Title } from 'native-base';
+import { Spinner, Button, Icon, Header, Left, Body, Title, Right } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
 
 class Camera extends Component {
@@ -30,7 +30,7 @@ class Camera extends Component {
           <Body>
             <Title>Header</Title>
           </Body>
-          <Left />
+          <Right />
         </Header>
         <RNCamera
           ref={ref => {

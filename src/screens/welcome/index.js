@@ -16,7 +16,6 @@ import {
   Icon,
   Title,
   List,
-  FlatList,
   Form,
   Input,
   Item,

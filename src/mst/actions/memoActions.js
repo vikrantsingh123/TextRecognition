@@ -1,7 +1,7 @@
 import { destroy } from 'mobx-state-tree';
 const memoActions = self => ({
   addItem(list) {
-    let name = 'Untitiled Text file' + self.memoArray.length + 1;
+    let name = 'Untitiled Text ' + parseInt(self.memoArray.length + 1);
     let content = [];
     list.forEach(element => {
       content.push(element.text);
@@ -36,6 +36,9 @@ const memoActions = self => ({
   editName(name) {
     self.memoArray[self.editId].name = name;
     self.overlayVisible = false;
+  },
+  saveContent(list) {
+    self.memoArray[self.editId].content = list;
   },
 });
 
