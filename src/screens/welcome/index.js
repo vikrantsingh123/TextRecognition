@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
 import {
@@ -15,10 +15,10 @@ import {
   Header,
   Icon,
   Title,
-  List,
   Form,
   Input,
   Item,
+  List,
 } from 'native-base';
 import { Overlay } from 'react-native-elements';
 
@@ -57,7 +57,11 @@ class Welcome extends Component {
               <Text>Clear Whole List</Text>
             </Button>
           </View>
-          <List dataArray={toJS(memoStore.memoArray)} renderRow={this.renderItem} />
+          <FlatList
+            data={toJS(memoStore.memoArray)}
+            keyExtractor={(memo, index) => index.toString()}
+            renderItem={({ item, index }) => this.renderRow(item, index)}
+          />
           <Overlay
             isVisible={memoStore.overlayVisible}
             overlayBackgroundColor="white"
@@ -79,7 +83,9 @@ class Welcome extends Component {
     );
   }
 
-  renderItem = (memo, x, index, z) => {
+  renderRow = (memo, index) => {
+    let id = parseInt(index);
+    console.log('memo', memo);
     const { memoStore } = this.props.store;
     return (
       <Card style={{ flex: 0, borderRadius: 3, marginLeft: 10, marginRight: 10 }}>
@@ -87,9 +93,9 @@ class Welcome extends Component {
           style={{ paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0 }}
           button
           onPress={() => {
-            memoStore.setEditId(index);
+            memoStore.setEditId(parseInt(id));
             this.props.navigation.navigate('MemoView', {
-              otherParam: index,
+              otherParam: id,
             });
           }}
         >
@@ -97,7 +103,7 @@ class Welcome extends Component {
             <Button
               style={{ alignSelf: 'flex-start', backgroundColor: '#f57f17' }}
               full
-              onPress={() => memoStore.overlayTrue(index)}
+              onPress={() => memoStore.overlayTrue(id)}
             >
               <Icon type="FontAwesome5" style={{ fontSize: 18 }} active name="user-edit" />
             </Button>
@@ -105,7 +111,7 @@ class Welcome extends Component {
           </Left>
 
           <Right>
-            <Button style={{ alignSelf: 'flex-end' }} full danger onPress={() => memoStore.delete(index)}>
+            <Button style={{ alignSelf: 'flex-end' }} full danger onPress={() => memoStore.delete(id)}>
               <Icon style={{ fontSize: 24 }} active name="trash" />
             </Button>
           </Right>

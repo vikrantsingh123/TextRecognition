@@ -71,19 +71,11 @@ class MemoView extends Component {
               </Button>
             </Right>
           </Header>
-          <List dataArray={memoStore.memoArray[index].content.slice()} renderRow={this.renderItem} />
+          <Text>{memoStore.memoArray[index].content.join('\n')}</Text>
         </Content>
       </Container>
     );
   }
-  renderItem = memo => {
-    console.log('In render', memo);
-    return (
-      <Content>
-        <Text>{memo}</Text>
-      </Content>
-    );
-  };
 }
 export default inject('store')(observer(MemoView));
 
