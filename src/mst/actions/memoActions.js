@@ -19,7 +19,6 @@ const memoActions = self => ({
   loaderFalse() {
     self.loader = false;
   },
-
   clear() {
     self.memoArray = [];
   },
@@ -29,6 +28,9 @@ const memoActions = self => ({
   overlayTrue(id) {
     self.editId = parseInt(id);
     self.overlayVisible = true;
+  },
+  setEditId(id) {
+    self.editId = parseInt(id);
   },
   overlayFalse() {
     self.overlayVisible = false;

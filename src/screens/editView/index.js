@@ -42,7 +42,7 @@ class EditView extends Component {
             </Left>
 
             <Body>
-              <Title>Header</Title>
+              <Title>Edit</Title>
             </Body>
             <Right>
               <Button transparent onPress={() => this.save()}>

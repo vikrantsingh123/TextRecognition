@@ -3,6 +3,7 @@ package com.textrecognition;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cl.json.RNSharePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 //import com.mlkit.RNMlKitPackage;
@@ -26,7 +27,8 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(new MainReactPackage(), new VectorIconsPackage(),
+      return Arrays.<ReactPackage>asList(new MainReactPackage(),
+            new RNSharePackage(), new VectorIconsPackage(),
           new RNGestureHandlerPackage(),
           // new RNMlKitPackage(),
           new RNCameraPackage(), new RNTextDetectorPackage()

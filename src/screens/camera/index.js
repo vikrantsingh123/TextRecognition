@@ -28,7 +28,7 @@ class Camera extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Header</Title>
+            <Title>FasReco</Title>
           </Body>
           <Right />
         </Header>
@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-end',
+    height: '100%',
   },
   icon: {
     flex: 0,
@@ -130,5 +131,6 @@ const styles = StyleSheet.create({
     height: '40',
     width: '40',
     alignSelf: 'flex-start',
+    height: '100%',
   },
 });

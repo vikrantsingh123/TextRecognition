@@ -51,7 +51,7 @@ class Welcome extends Component {
           <Text>Click the below button</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
             <Button style={{ backgroundColor: '#e94153' }} onPress={() => this.props.navigation.navigate('Camera')}>
-              <Text>Click</Text>
+              <Text>Snap</Text>
             </Button>
             <Button style={{ backgroundColor: '#e94153' }} onPress={() => memoStore.clear()}>
               <Text>Clear Whole List</Text>
@@ -86,11 +86,12 @@ class Welcome extends Component {
         <CardItem
           style={{ paddingLeft: 0, paddingRight: 0, paddingTop: 0, paddingBottom: 0 }}
           button
-          onPress={() =>
+          onPress={() => {
+            memoStore.setEditId(index);
             this.props.navigation.navigate('MemoView', {
               otherParam: index,
-            })
-          }
+            });
+          }}
         >
           <Left>
             <Button
