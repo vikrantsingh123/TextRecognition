@@ -161,6 +161,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.1'
     implementation "com.google.firebase:firebase-auth:16.2.1"
     implementation 'com.google.firebase:firebase-ml-vision:17.0.0'
+    implementation "com.google.firebase:firebase-database:16.1.0"
 
     implementation (project(':react-native-text-detector')) {
         exclude group: 'com.google.firebase'

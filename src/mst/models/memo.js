@@ -5,7 +5,8 @@ import memoActions from './../actions/memoActions';
 // Individual workout model
 const memoModel = types.model('memoModel', {
   name: types.string,
-  content: types.maybe(types.array(types.string)),
+  content: types.maybe(types.string),
+  time: types.maybe(types.string),
 });
 
 const memoStore = types

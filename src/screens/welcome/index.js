@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { observer, inject } from 'mobx-react';
+import firebase from 'react-native-firebase';
 import { toJS } from 'mobx';
 import {
   Button,
@@ -46,7 +47,11 @@ class Welcome extends Component {
             <Body>
               <Title>FasReco</Title>
             </Body>
-            <Left />
+            <Right>
+              <Button transparent style={{ alignSelf: 'flex-start' }} full onPress={() => firebase.auth().signOut()}>
+                <Icon type="AntDesign" style={{ fontSize: 18 }} name="logout" />
+              </Button>
+            </Right>
           </Header>
           <Text>Click the below button</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>

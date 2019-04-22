@@ -28,7 +28,7 @@ class MemoView extends Component {
     const header = memoStore.memoArray[index].name;
     let shareOptions = {
       title: 'React Native',
-      message: memoStore.memoArray[index].content.join('\n'),
+      message: memoStore.memoArray[index].content,
       social: Share.Social,
     };
     return (
@@ -71,7 +71,7 @@ class MemoView extends Component {
               </Button>
             </Right>
           </Header>
-          <Text>{memoStore.memoArray[index].content.join('\n')}</Text>
+          <Text>{memoStore.memoArray[index].content}</Text>
         </Content>
       </Container>
     );

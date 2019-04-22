@@ -16,7 +16,7 @@ class EditView extends Component {
     const index = this.props.navigation.getParam('otherParam', 1);
     const { memoStore } = this.props.store;
     this.setState({
-      editName: memoStore.memoArray[index].content.join('\n'),
+      editName: memoStore.memoArray[index].content,
       len: memoStore.memoArray[index].content.length,
     });
   }
@@ -26,7 +26,7 @@ class EditView extends Component {
   };
 
   save = () => {
-    this.props.store.memoStore.saveContent(this.state.editName.split('\n'));
+    this.props.store.memoStore.saveContent(this.state.editName);
     this.props.navigation.goBack();
   };
 
