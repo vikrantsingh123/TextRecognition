@@ -43,9 +43,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    //console.log('user mobx ', this.props.store);
     const { userStore } = this.props.store;
-    //console.log('user mobx ', userStore);
     return (
       <Container>
         <Content>
@@ -58,7 +56,6 @@ class LoginForm extends Component {
             <CardItem>
               <Item>
                 <Input
-                  //label="Email"
                   value={userStore.email_text}
                   onChangeText={email => userStore.setEmail(email)}
                   placeholder="user@gmail.com"
@@ -71,7 +68,6 @@ class LoginForm extends Component {
                 <Input
                   secureTextEntry
                   placeholder="password"
-                  //label="Password"
                   value={userStore.password}
                   onChangeText={password => userStore.setPassword(password)}
                 />

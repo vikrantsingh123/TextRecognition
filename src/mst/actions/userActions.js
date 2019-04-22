@@ -9,8 +9,8 @@ const userActions = self => ({
   setPassword(password) {
     self.password = password;
   },
-  setUid(uid) {
-    self.uid = uid;
+  setUid() {
+    self.uid = firebase.auth().currentUser.uid;
   },
   onLoginPress() {
     self.error = '';
@@ -19,8 +19,8 @@ const userActions = self => ({
     firebase
       .auth()
       .signInWithEmailAndPassword(self.email_text, self.password)
-      .then(self.onLoginSuccess())
-      .catch(self.onLoginFailFirst());
+      .then(() => this.onLoginSuccess())
+      .catch(() => this.onLoginFailFirst());
   },
   onLoginFailFirst() {
     self.error = 'Wrong credentials or User does not exist';
@@ -43,18 +43,11 @@ const userActions = self => ({
     self.loading1 = false;
     self.loading2 = false;
     self.error = '';
-    console.log('self', self, firebase.auth().currentUser);
-    //self.uid = firebase.auth().currentUser.uid;
+    self.uid = firebase.auth().currentUser.uid;
   },
   onSignUpPress() {
-    // const { email, password } = this.state;
-    //this.setState({ error: '', loading2: true });
     self.error = '';
     self.loading2 = true;
-
-    //console.log('ref', `user/client/${firebase.auth().currentUser.uid}`);
-    console.log('email text', self.email_text, self.password);
-
     firebase
       .auth()
       .createUserWithEmailAndPassword(self.email_text, self.password)
@@ -64,32 +57,18 @@ const userActions = self => ({
           .ref(`user/client/${firebase.auth().currentUser.uid}`)
           .set({ email: `${firebase.auth().currentUser.email}` })
       )
-      .then(self.onLoginSuccess())
-      .catch(self.onDupLoginFail());
+      .then(() => this.onLoginSuccess())
+      .catch(() => this.onDupLoginFail());
   },
   resetUser() {
-    self.email = self.email_text = self.password = self.error = '';
+    self.uid = self.email = self.email_text = self.password = self.error = '';
     self.loading1 = self.loading2 = false;
   },
 
   signoutUser() {
-    const parentNode = getParent(self);
-
     // Empty store
     this.resetUser();
-
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        props.navigation.navigate('SplashScreen');
-      })
-      .catch(() =>
-        Toast.show({
-          text: 'Problem signing out!',
-          buttonText: 'Okay',
-        })
-      );
+    firebase.auth().signOut();
   },
 });
 

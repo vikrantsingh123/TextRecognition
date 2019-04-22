@@ -19,7 +19,6 @@ import {
   Form,
   Input,
   Item,
-  List,
 } from 'native-base';
 import { Overlay } from 'react-native-elements';
 
@@ -28,6 +27,12 @@ class Welcome extends Component {
     header: null,
   };
 
+  componentDidMount() {
+    const { memoStore, userStore } = this.props.store;
+    userStore.setUid();
+    console.log('asdfasdf', memoStore);
+    memoStore.fetchList();
+  }
   state = {
     editName: '',
   };
@@ -48,12 +53,17 @@ class Welcome extends Component {
               <Title>FasReco</Title>
             </Body>
             <Right>
-              <Button transparent style={{ alignSelf: 'flex-start' }} full onPress={() => firebase.auth().signOut()}>
+              <Button
+                transparent
+                style={{ alignSelf: 'flex-start' }}
+                full
+                onPress={() => this.props.store.userStore.signoutUser()}
+              >
                 <Icon type="AntDesign" style={{ fontSize: 18 }} name="logout" />
               </Button>
             </Right>
           </Header>
-          <Text>Click the below button</Text>
+
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
             <Button style={{ backgroundColor: '#e94153' }} onPress={() => this.props.navigation.navigate('Camera')}>
               <Text>Snap</Text>
