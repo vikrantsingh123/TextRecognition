@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { observer, inject } from 'mobx-react';
-import firebase from 'react-native-firebase';
 import { toJS } from 'mobx';
 import {
   Button,
@@ -19,6 +18,7 @@ import {
   Form,
   Input,
   Item,
+  Spinner,
 } from 'native-base';
 import { Overlay } from 'react-native-elements';
 
@@ -42,8 +42,12 @@ class Welcome extends Component {
 
   render() {
     const { memoStore } = this.props.store;
-    {
-      console.log('memo', memoStore.memoArray.slice());
+    if (memoStore.loader == true) {
+      return (
+        <Container style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Spinner color="red" />
+        </Container>
+      );
     }
     return (
       <Container style={styles.container}>

@@ -11,10 +11,8 @@ class LoadingScreen extends Component {
 
   render() {
     return (
-      <Container>
-        <Content>
-          <Spinner color="red" />
-        </Content>
+      <Container style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Spinner color="red" />
       </Container>
     );
   }

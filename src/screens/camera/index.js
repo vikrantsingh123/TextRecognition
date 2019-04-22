@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
 import { Spinner, Button, Icon, Header, Left, Body, Title, Right } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
+import { Overlay } from 'react-native-elements';
 
 class Camera extends Component {
   state = { zoomValue: 0, flashMode: RNCamera.Constants.FlashMode.off };
@@ -49,10 +50,18 @@ class Camera extends Component {
           zoom={this.state.zoomValue}
         >
           {memoStore.loader == true ? (
-            <View styles={StyleSheet.spinnerStyle}>
-              <Spinner color="red" />
-              <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Please Wait...</Text>
-            </View>
+            <Overlay
+              isVisible={memoStore.loader}
+              overlayBackgroundColor="white"
+              width="75%"
+              height="25%"
+              onBackdropPress={() => memoStore.loaderFalse()}
+            >
+              <View>
+                <Spinner color="red" />
+                <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Processing...</Text>
+              </View>
+            </Overlay>
           ) : null}
           <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
             <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
@@ -128,9 +137,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     flexDirection: 'column',
-    height: '40',
-    width: '40',
-    alignSelf: 'flex-start',
     height: '100%',
+    width: '100%',
+    alignSelf: 'flex-start',
   },
 });

@@ -6,6 +6,7 @@ import { getParent } from 'mobx-state-tree';
 const memoActions = self => ({
   fetchList() {
     const { uid } = getParent(self).userStore;
+    self.loaderTrue();
     ref = firebase.database().ref(`user/client/${uid}/memo`);
     ref.once('value', snapshot => {
       if (snapshot.exists()) {
@@ -23,8 +24,10 @@ const memoActions = self => ({
           this.addList(list);
         });
       }
+      self.loaderFalse();
     });
   },
+
   addList(list) {
     self.memoArray = list;
   },

@@ -10,7 +10,7 @@ const memoModel = types.model('memoModel', {
 });
 
 const memoStore = types
-  .model('workoutStore', {
+  .model('memoStore', {
     memoArray: types.array(memoModel),
     loader: types.boolean,
     overlayVisible: types.boolean,
