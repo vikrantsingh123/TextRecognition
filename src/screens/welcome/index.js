@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { toJS } from 'mobx';
+import colors from './../../assets/colors';
 import {
   Button,
   Content,
@@ -45,14 +46,14 @@ class Welcome extends Component {
     if (memoStore.loader == true) {
       return (
         <Container style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Spinner color="red" />
+          <Spinner color={colors.primaryColor} />
         </Container>
       );
     }
     return (
       <Container style={styles.container}>
         <Content>
-          <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+          <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
             <Body>
               <Title>FasReco</Title>
             </Body>
@@ -69,10 +70,13 @@ class Welcome extends Component {
           </Header>
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10 }}>
-            <Button style={{ backgroundColor: '#e94153' }} onPress={() => this.props.navigation.navigate('Camera')}>
+            <Button
+              style={{ backgroundColor: colors.primaryColor }}
+              onPress={() => this.props.navigation.navigate('Camera')}
+            >
               <Text>Snap</Text>
             </Button>
-            <Button style={{ backgroundColor: '#e94153' }} onPress={() => memoStore.clear()}>
+            <Button style={{ backgroundColor: colors.primaryColor }} onPress={() => memoStore.clear()}>
               <Text>Clear Whole List</Text>
             </Button>
           </View>
@@ -86,14 +90,17 @@ class Welcome extends Component {
             isVisible={memoStore.overlayVisible}
             overlayBackgroundColor="white"
             width="80%"
-            height="60%"
+            height="35%"
             onBackdropPress={() => memoStore.overlayFalse()}
           >
             <Form>
               <Item>
                 <Input placeholder="Title" onChangeText={this.handleChange} />
               </Item>
-              <Button style={{ backgroundColor: '#e94153' }} onPress={() => memoStore.editName(this.state.editName)}>
+              <Button
+                style={{ backgroundColor: colors.primaryColor, marginTop: 20, padding: 10, alignSelf: 'flex-end' }}
+                onPress={() => memoStore.editName(this.state.editName)}
+              >
                 <Text>Ok</Text>
               </Button>
             </Form>
@@ -122,7 +129,7 @@ class Welcome extends Component {
         >
           <Left>
             <Button
-              style={{ alignSelf: 'flex-start', backgroundColor: '#f57f17' }}
+              style={{ alignSelf: 'flex-start', backgroundColor: colors.editButtonColor }}
               full
               onPress={() => memoStore.overlayTrue(id)}
             >
@@ -132,7 +139,11 @@ class Welcome extends Component {
           </Left>
 
           <Right>
-            <Button style={{ alignSelf: 'flex-end' }} full danger onPress={() => memoStore.delete(id)}>
+            <Button
+              style={{ alignSelf: 'flex-end', backgroundColor: colors.deleteButtonColor }}
+              full
+              onPress={() => memoStore.delete(id)}
+            >
               <Icon style={{ fontSize: 24 }} active name="trash" />
             </Button>
           </Right>
@@ -146,7 +157,7 @@ export default inject('store')(observer(Welcome));
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   },
   welcome: {
     fontSize: 20,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { Button, Content, Container, Text, Item, Left, Body, Right, Header, Icon, Title, Textarea } from 'native-base';
+import colors from '../../assets/colors';
 
 class EditView extends Component {
   static navigationOptions = {
@@ -34,7 +35,7 @@ class EditView extends Component {
     return (
       <Container style={styles.container}>
         <Content>
-          <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+          <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
             <Left>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name="arrow-back" />

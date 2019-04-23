@@ -6,6 +6,7 @@ import { Slider } from 'react-native-elements';
 import { Spinner, Button, Icon, Header, Left, Body, Title, Right } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
 import { Overlay } from 'react-native-elements';
+import colors from '../../assets/colors';
 
 class Camera extends Component {
   state = { zoomValue: 0, flashMode: RNCamera.Constants.FlashMode.off };
@@ -22,7 +23,7 @@ class Camera extends Component {
 
     return (
       <View style={styles.container}>
-        <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+        <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon name="arrow-back" />
@@ -58,7 +59,7 @@ class Camera extends Component {
               onBackdropPress={() => memoStore.loaderFalse()}
             >
               <View>
-                <Spinner color="red" />
+                <Spinner color={colors.primaryColor} />
                 <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Processing...</Text>
               </View>
             </Overlay>
@@ -71,7 +72,7 @@ class Camera extends Component {
                 step={0.1}
                 value={this.state.zoomValue}
                 onValueChange={zoomValue => this.setState({ zoomValue })}
-                thumbTintColor="#e94153"
+                thumbTintColor={colors.primaryColor}
               />
             </View>
 

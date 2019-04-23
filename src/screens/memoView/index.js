@@ -3,6 +3,7 @@ import { StyleSheet, Clipboard } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { Button, Content, Container, Text, List, Left, Body, Right, Header, Icon, Title } from 'native-base';
 import Share from 'react-native-share';
+import colors from '../../assets/colors';
 
 class MemoView extends Component {
   static navigationOptions = {
@@ -35,7 +36,7 @@ class MemoView extends Component {
     return (
       <Container style={styles.container}>
         <Content>
-          <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+          <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
             <Left>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name="arrow-back" />
