@@ -77,6 +77,7 @@ class Welcome extends Component {
             </Button>
           </View>
           <FlatList
+            inverted
             data={toJS(memoStore.memoArray)}
             keyExtractor={(memo, index) => index.toString()}
             renderItem={({ item, index }) => this.renderRow(item, index)}

@@ -7,23 +7,54 @@ const memoActions = self => ({
   fetchList() {
     const { uid } = getParent(self).userStore;
     self.loaderTrue();
+    var list = [];
     ref = firebase.database().ref(`user/client/${uid}/memo`);
     ref.once('value', snapshot => {
       if (snapshot.exists()) {
         ref = firebase.database().ref(`user/client/${uid}/memo`);
 
         ref.once('value', snapshot => {
-          let list = snapshot.toJSON();
+          snapshot.forEach(item => {
+            console.log(item.val(), 'itemmmmm');
 
-          list = Object.keys(list).map(id => ({
-            name: list[id]['name'] || '',
-            content: list[id]['content'] || '',
-            time: list[id]['time'] || '',
-          }));
-          this.addList(list);
+            list.push(item.val());
+            console.log(snapshot.numChildren(), list.length, 'here');
+
+            if (snapshot.numChildren() == list.length) {
+              this.addList(list);
+              self.loaderFalse();
+            }
+          });
+
+          // let list = snapshot.children;
+          // console.log('snapshot ', list);
+          // //
+          // var keys = Object.keys(list);
+          // // .map(id => {
+          // //   console.log(id);
+
+          // //   {
+          // //   name: list[id]['name'] || '',
+          // //   content: list[id]['content'] || '',
+          // //   time: list[id]['time'] || '',
+          // // }
+          // //  });
+
+          // var keys = Object.keys(list);
+          // var newList = [];
+          // keys.map(id => {
+          //   newList.push({
+          //     name: list[id]['name'] || '',
+          //     content: list[id]['content'] || '',
+          //     time: list[id]['time'] || '',
+          //   });
+          // });
+          // console.log('list', newList);
+          // list = list.reverse();
+          // //console.log('lis2', list);
+          // this.addList(list);
         });
       }
-      self.loaderFalse();
     });
   },
 
