@@ -105,6 +105,7 @@ class Welcome extends Component {
   renderRow = (memo, index) => {
     let id = parseInt(index);
     console.log('memo', memo);
+    console.log('index', index);
     const { memoStore } = this.props.store;
     return (
       <Card style={{ flex: 0, borderRadius: 3, marginLeft: 10, marginRight: 10 }}>

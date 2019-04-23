@@ -16,7 +16,6 @@ const memoActions = self => ({
           let list = snapshot.toJSON();
 
           list = Object.keys(list).map(id => ({
-            id,
             name: list[id]['name'] || '',
             content: list[id]['content'] || '',
             time: list[id]['time'] || '',

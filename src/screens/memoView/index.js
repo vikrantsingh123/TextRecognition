@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Clipboard } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { Button, Content, Container, Text, List, Left, Body, Right, Header, Icon, Title } from 'native-base';
 import Share from 'react-native-share';
@@ -25,6 +25,7 @@ class MemoView extends Component {
   render() {
     const { memoStore } = this.props.store;
     const index = this.props.navigation.getParam('otherParam', 1);
+    console.log('index memo ', index);
     const header = memoStore.memoArray[index].name;
     let shareOptions = {
       title: 'React Native',
@@ -44,6 +45,15 @@ class MemoView extends Component {
               <Title>{header}</Title>
             </Body>
             <Right>
+              <Button
+                transparent
+                onPress={async () => {
+                  await Clipboard.setString(memoStore.memoArray[index].content);
+                  alert('Copied to Clipboard!');
+                }}
+              >
+                <Icon type="AntDesign" name="copy1" />
+              </Button>
               <Button
                 transparent
                 onPress={() => {

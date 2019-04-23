@@ -106,6 +106,11 @@ class Camera extends Component {
       console.warn(e);
     }
     memoStore.loaderFalse();
+    let id = memoStore.memoArray.length - 1;
+    memoStore.setEditId(parseInt(id));
+    this.props.navigation.navigate('MemoView', {
+      otherParam: id,
+    });
     console.log('try outside', memoStore.loader);
   };
 }
