@@ -25,8 +25,11 @@ class LoginForm extends Component {
     }
 
     return (
-      <Button onPress={() => this.props.store.userStore.onLoginPress()} bordered>
-        <Text>Log in</Text>
+      <Button
+        style={{ padding: 30, backgroundColor: '#e94153', borderRadius: 5 }}
+        onPress={() => this.props.store.userStore.onLoginPress()}
+      >
+        <Text style={{ color: 'white' }}>Log in</Text>
       </Button>
     );
   }
@@ -36,8 +39,11 @@ class LoginForm extends Component {
     }
 
     return (
-      <Button onPress={() => this.props.store.userStore.onSignUpPress()} bordered>
-        <Text>Sign up</Text>
+      <Button
+        style={{ padding: 30, backgroundColor: '#e94153', borderRadius: 5 }}
+        onPress={() => this.props.store.userStore.onSignUpPress()}
+      >
+        <Text style={{ color: 'white' }}>Sign up</Text>
       </Button>
     );
   }
@@ -46,41 +52,43 @@ class LoginForm extends Component {
     const { userStore } = this.props.store;
     return (
       <Container>
-        <Content>
-          <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+        <Content style={{ backgroundColor: 'white' }}>
+          <Header style={{ backgroundColor: '#e94153', marginBottom: 10 }} androidStatusBarColor="#e11145">
             <Body>
               <Title>FasReco</Title>
             </Body>
           </Header>
-          <Card>
-            <CardItem>
-              <Item>
-                <Input
-                  value={userStore.email_text}
-                  onChangeText={email => userStore.setEmail(email)}
-                  placeholder="user@gmail.com"
-                />
-              </Item>
-            </CardItem>
+          <Content style={{ padding: 10 }}>
+            <Card style={{ borderColor: 'black', borderWidth: 100 }}>
+              <CardItem>
+                <Item>
+                  <Input
+                    value={userStore.email_text}
+                    onChangeText={email => userStore.setEmail(email)}
+                    placeholder="User@gmail.com"
+                  />
+                </Item>
+              </CardItem>
 
-            <CardItem>
-              <Item>
-                <Input
-                  secureTextEntry
-                  placeholder="password"
-                  value={userStore.password}
-                  onChangeText={password => userStore.setPassword(password)}
-                />
-              </Item>
-            </CardItem>
+              <CardItem>
+                <Item>
+                  <Input
+                    secureTextEntry
+                    placeholder="Password"
+                    value={userStore.password}
+                    onChangeText={password => userStore.setPassword(password)}
+                  />
+                </Item>
+              </CardItem>
 
-            <Text style={styles.errorTextStyle}>{userStore.error}</Text>
+              <Text style={styles.errorTextStyle}>{userStore.error}</Text>
 
-            <CardItem style={{ paddingLeft: 20, paddingRight: 20 }}>
-              <Left>{this.renderSignIn()}</Left>
-              <Right>{this.renderSignUp()}</Right>
-            </CardItem>
-          </Card>
+              <CardItem style={{ paddingLeft: 20, paddingRight: 20 }}>
+                <Left>{this.renderSignIn()}</Left>
+                <Right>{this.renderSignUp()}</Right>
+              </CardItem>
+            </Card>
+          </Content>
         </Content>
       </Container>
     );

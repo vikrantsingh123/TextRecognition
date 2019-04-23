@@ -49,6 +49,7 @@ class MemoView extends Component {
                 onPress={() => {
                   this.onCancel();
                   setTimeout(() => {
+                    console.log('social', Share);
                     Share.shareSingle(
                       Object.assign(shareOptions, {
                         social: 'whatsapp',
