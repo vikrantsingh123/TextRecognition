@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-import firebase from 'react-native-firebase';
+import colors from './../../assets/colors';
 import { observer, inject } from 'mobx-react';
 import {
   Spinner,
@@ -21,28 +21,22 @@ import {
 class LoginForm extends Component {
   renderSignIn() {
     if (this.props.store.userStore.loading1) {
-      return <Spinner color="red" />;
+      return <Spinner color={colors.primaryColor} />;
     }
 
     return (
-      <Button
-        style={{ padding: 30, backgroundColor: '#e94153', borderRadius: 5 }}
-        onPress={() => this.props.store.userStore.onLoginPress()}
-      >
+      <Button style={styles.buttonStyle} onPress={() => this.props.store.userStore.onLoginPress()}>
         <Text style={{ color: 'white' }}>Log in</Text>
       </Button>
     );
   }
   renderSignUp() {
     if (this.props.store.userStore.loading2) {
-      return <Spinner color="red" />;
+      return <Spinner color={colors.primaryColor} />;
     }
 
     return (
-      <Button
-        style={{ padding: 30, backgroundColor: '#e94153', borderRadius: 5 }}
-        onPress={() => this.props.store.userStore.onSignUpPress()}
-      >
+      <Button style={styles.buttonStyle} onPress={() => this.props.store.userStore.onSignUpPress()}>
         <Text style={{ color: 'white' }}>Sign up</Text>
       </Button>
     );
@@ -53,7 +47,10 @@ class LoginForm extends Component {
     return (
       <Container>
         <Content style={{ backgroundColor: 'white' }}>
-          <Header style={{ backgroundColor: '#e94153', marginBottom: 10 }} androidStatusBarColor="#e11145">
+          <Header
+            style={{ backgroundColor: colors.primaryColor, marginBottom: 10 }}
+            androidStatusBarColor={colors.secondaryColor}
+          >
             <Body>
               <Title>FasReco</Title>
             </Body>
@@ -105,7 +102,9 @@ const styles = {
     flexDirection: 'row',
   },
   buttonStyle: {
-    flex: 1,
+    padding: 30,
+    backgroundColor: colors.primaryColor,
+    borderRadius: 5,
   },
 };
 export default inject('store')(observer(LoginForm));

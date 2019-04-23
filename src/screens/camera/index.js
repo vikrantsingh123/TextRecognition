@@ -6,6 +6,7 @@ import { Slider } from 'react-native-elements';
 import { Spinner, Button, Icon, Header, Left, Body, Title, Right } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
 import { Overlay } from 'react-native-elements';
+import colors from '../../assets/colors';
 
 class Camera extends Component {
   state = { zoomValue: 0, flashMode: RNCamera.Constants.FlashMode.off };
@@ -22,7 +23,7 @@ class Camera extends Component {
 
     return (
       <View style={styles.container}>
-        <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+        <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon name="arrow-back" />
@@ -58,7 +59,7 @@ class Camera extends Component {
               onBackdropPress={() => memoStore.loaderFalse()}
             >
               <View>
-                <Spinner color="red" />
+                <Spinner color={colors.primaryColor} />
                 <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Processing...</Text>
               </View>
             </Overlay>
@@ -71,7 +72,7 @@ class Camera extends Component {
                 step={0.1}
                 value={this.state.zoomValue}
                 onValueChange={zoomValue => this.setState({ zoomValue })}
-                thumbTintColor="#e94153"
+                thumbTintColor={colors.primaryColor}
               />
             </View>
 
@@ -98,8 +99,11 @@ class Camera extends Component {
         base64: true,
         skipProcessing: true,
       };
+      console.log('hiii');
       const { uri } = await this.camera.takePictureAsync(options);
+      console.log('hiii2');
       const visionResp = await RNTextDetector.detectFromUri(uri);
+      console.log('hiii3');
       this.props.store.memoStore.addItem(visionResp);
       console.log('visionResp', visionResp);
     } catch (e) {
@@ -136,14 +140,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20,
-  },
-  spinnerStyle: {
-    flex: 0,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    height: '100%',
-    width: '100%',
-    alignSelf: 'flex-start',
   },
 });

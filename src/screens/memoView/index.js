@@ -3,6 +3,7 @@ import { StyleSheet, Clipboard } from 'react-native';
 import { observer, inject } from 'mobx-react';
 import { Button, Content, Container, Text, List, Left, Body, Right, Header, Icon, Title } from 'native-base';
 import Share from 'react-native-share';
+import colors from '../../assets/colors';
 
 class MemoView extends Component {
   static navigationOptions = {
@@ -25,7 +26,6 @@ class MemoView extends Component {
   render() {
     const { memoStore } = this.props.store;
     const index = this.props.navigation.getParam('otherParam', 1);
-    console.log('index memo ', index);
     const header = memoStore.memoArray[index].name;
     let shareOptions = {
       title: 'React Native',
@@ -35,7 +35,7 @@ class MemoView extends Component {
     return (
       <Container style={styles.container}>
         <Content>
-          <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+          <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
             <Left>
               <Button transparent onPress={() => this.props.navigation.goBack()}>
                 <Icon name="arrow-back" />
@@ -93,7 +93,6 @@ export default inject('store')(observer(MemoView));
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: '#F5FCFF',
   },
   welcome: {
