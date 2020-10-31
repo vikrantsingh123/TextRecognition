@@ -8,6 +8,15 @@ const store = storeModel.create({
     overlayVisible: false,
     editId: 0,
   },
+  userStore: {
+    uid: '',
+    email: '',
+    email_text: '',
+    password: '',
+    error: '',
+    loading1: false,
+    loading2: false,
+  },
 });
 
 export default store;

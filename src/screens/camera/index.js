@@ -3,8 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { observer, inject } from 'mobx-react';
 import { Slider } from 'react-native-elements';
-import { Spinner, Button, Icon, Header, Left, Body, Title } from 'native-base';
+import { Spinner, Button, Icon, Header, Left, Body, Title, Right } from 'native-base';
 import RNTextDetector from 'react-native-text-detector';
+import { Overlay } from 'react-native-elements';
+import colors from '../../assets/colors';
 
 class Camera extends Component {
   state = { zoomValue: 0, flashMode: RNCamera.Constants.FlashMode.off };
@@ -21,16 +23,16 @@ class Camera extends Component {
 
     return (
       <View style={styles.container}>
-        <Header style={{ backgroundColor: '#e94153' }} androidStatusBarColor="#e11145">
+        <Header style={{ backgroundColor: colors.primaryColor }} androidStatusBarColor={colors.secondaryColor}>
           <Left>
             <Button transparent onPress={() => this.props.navigation.goBack()}>
               <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>
-            <Title>Header</Title>
+            <Title>FasReco</Title>
           </Body>
-          <Left />
+          <Right />
         </Header>
         <RNCamera
           ref={ref => {
@@ -49,10 +51,18 @@ class Camera extends Component {
           zoom={this.state.zoomValue}
         >
           {memoStore.loader == true ? (
-            <View styles={StyleSheet.spinnerStyle}>
-              <Spinner color="red" />
-              <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Please Wait...</Text>
-            </View>
+            <Overlay
+              isVisible={memoStore.loader}
+              overlayBackgroundColor="white"
+              width="75%"
+              height="25%"
+              onBackdropPress={() => memoStore.loaderFalse()}
+            >
+              <View>
+                <Spinner color={colors.primaryColor} />
+                <Text style={{ alignSelf: 'center', fontSize: 20, color: 'black' }}>Processing...</Text>
+              </View>
+            </Overlay>
           ) : null}
           <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
             <View style={{ flex: 1, alignItems: 'stretch', justifyContent: 'center' }}>
@@ -62,7 +72,7 @@ class Camera extends Component {
                 step={0.1}
                 value={this.state.zoomValue}
                 onValueChange={zoomValue => this.setState({ zoomValue })}
-                thumbTintColor="#e94153"
+                thumbTintColor={colors.primaryColor}
               />
             </View>
 
@@ -97,6 +107,11 @@ class Camera extends Component {
       console.warn(e);
     }
     memoStore.loaderFalse();
+    let id = memoStore.memoArray.length - 1;
+    memoStore.setEditId(parseInt(id));
+    this.props.navigation.navigate('MemoView', {
+      otherParam: id,
+    });
     console.log('try outside', memoStore.loader);
   };
 }
@@ -112,6 +127,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'flex-end',
+    height: '100%',
   },
   icon: {
     flex: 0,
@@ -127,8 +143,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
     flexDirection: 'column',
-    height: '40',
-    width: '40',
+    height: '100%',
+    width: '100%',
     alignSelf: 'flex-start',
   },
 });

@@ -4657,6 +4657,11 @@ mobx@^5.9.4:
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-5.9.4.tgz#1dee92aba33f67b7baeeb679e3bd376a12e55812"
   integrity sha512-L9JjTX2rtQUAhCIgnHokfntNOsF14uioT9LqStf6Mya+16j56ZBe21E8Y9V59tfr2aH2kLQPD10qtCJXBuTAxw==
 
+moment@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+
 morgan@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -5511,6 +5516,14 @@ react-native-elements@^1.1.0:
     react-native-ratings "^6.3.0"
     react-native-status-bar-height "^2.2.0"
 
+react-native-firebase@^5.3.1:
+  version "5.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.3.1.tgz#cfd295f562249f6fcf5e3fb2c62894575ece2c7f"
+  integrity sha512-eOuSqIl+DZPNmN5ivSLgkEcsl5m0sXxttoPBn3bOHfI+apEd4I8F+9fcbHerUFUvLzesXmHR9locjhR6IJ+q3w==
+  dependencies:
+    opencollective-postinstall "^2.0.0"
+    prop-types "^15.6.2"
+
 react-native-gesture-handler@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.1.0.tgz#2a7d545ad2e0ca23adce22b2af441ad360ecccee"
@@ -5552,6 +5565,11 @@ react-native-safe-area-view@^0.13.0:
   version "1.0.0-alpha.22"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
+
+react-native-share@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-1.1.3.tgz#513ea61075e2bb945d33cfda120e12592916299e"
+  integrity sha512-vKAJqgkEt7HjsF0HUwgom+E0FbmFNVZNncHwby1+O8/mXlKugh+Ym6rvv+A2ASHmD5TXKohJMYT2+jYofzPORA==
 
 react-native-status-bar-height@^2.2.0:
   version "2.3.1"
